@@ -65,24 +65,83 @@ public class Graph1 {
         gph.get(src).remove(Integer.valueOf(dest));
         gph.get(dest).remove(Integer.valueOf(src));
     }
+    static void dfstrav(int src,boolean[] visited){
+        visited[src]=true;
+        for(int neighbour: gph.get(src)){
+            if(!visited[neighbour]){
+                dfstrav(neighbour,visited);
+            }
+        }
+    }
+    static int countConnectedCom(int ver){
+        boolean[] visited=new boolean[ver];
+        int count=0;
+        for(int i=0;i<ver;i++){
+            if(!visited[i]){
+                dfstrav(i, visited);
+                count++;
+            }
+        }
+        return count;
+    }
 
+    static void DFSUtil(int src, boolean[] visited){
+        visited[src]=true;
+        for(int neighbour: gph.get(src)){
+            if(!visited[neighbour]){
+                DFSUtil(neighbour, visited);
+            }
+        }
+    }
+
+static boolean dfscycle(int src,int parent,boolean[] visited){
+    visited[src]=true;
+    for(int i: gph.get(src)){
+        if(!visited[i]){
+            if(dfscycle(i,src,visited)){
+                return true;
+            }
+        }else if(i!=parent){
+            return true;
+        }
+    } 
+    return false;
+}
+
+    static boolean isCycle(int src,int ver){
+        boolean[] visited=new boolean[ver];
+        for(int i=0;i<ver;i++){
+            if(!visited[i]){
+                if(dfscycle(i,-1,visited)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
     public static void main(String[] args){
         createGraph(6);
-        addEdge(0, 1);
-        addEdge(0,5);
+        // addEdge(0, 1);
+        // addEdge(0,5);
+        // addEdge(1,2);
+        // addEdge(1,5);
+        // addEdge(2,3);
+        // addEdge(3,4);
+        // addEdge(3,5);
+        // System.out.println("");
+        // BFS(0,6);
+        // System.out.println("");
+        // System.out.println("");
+        // DFS(0);
+        // System.out.println(containsEdge(0, 1));
+        // deleteEdge(0, 5);
+        // System.out.println(containsEdge(0, 5));
+        addEdge(0,1);
+        addEdge(0,2);
         addEdge(1,2);
-        addEdge(1,5);
-        addEdge(2,3);
         addEdge(3,4);
-        addEdge(3,5);
-        System.out.println("");
-        BFS(0,6);
-        System.out.println("");
-        System.out.println("");
-        DFS(0);
-        System.out.println(containsEdge(0, 1));
-        deleteEdge(0, 5);
-        System.out.println(containsEdge(0, 5));
+        addEdge(5,5);
+        System.out.println(countConnectedCom(6));
     }
 }
