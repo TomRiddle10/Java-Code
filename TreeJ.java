@@ -216,6 +216,18 @@ class TreeOps {
         dfs(root, target, path, res);
         return res;
     }
+    // print all the paths from root to leaf
+    static void printPaths(Node root, ArrayList<Integer> path) {
+        if (root == null)
+            return;
+        path.add(root.data);
+        if (root.left == null && root.right == null) {
+            System.out.println(path);
+        }
+        printPaths(root.left, path);
+        printPaths(root.right, path);
+        path.remove(path.size() - 1);
+    }
 }
 
 public class TreeJ {
@@ -225,9 +237,10 @@ public class TreeJ {
         TreeOps tree = new TreeOps();
 
         Node root = tree.buildTree(new Integer[]{5,4,8,11,13,4,7,2,1});
-        ArrayList<ArrayList<Integer>> res = tree.findPath(root, 22);
-        System.out.println(res);
-
+        // ArrayList<ArrayList<Integer>> res = tree.findPath(root, 22);
+        // System.out.println(res);
+        ArrayList<Integer> path1 = new ArrayList<>();
+        TreeOps.printPaths(root, path1);
         // root.left = new Node(5);
         // root.right = new Node(15);
         // root.left.left = new Node(3);

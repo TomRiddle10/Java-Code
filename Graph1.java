@@ -119,6 +119,16 @@ static boolean dfscycle(int src,int parent,boolean[] visited){
         }
         return false;
     }
+    // print all connected component of all graph
+    static void printConnectedCom(int ver){
+        boolean[] visited=new boolean[ver];
+        for(int i=0;i<ver;i++){
+            if(!visited[i]){
+                DFSUtil(i, visited);
+                System.out.println(visited[i]);
+            }
+        }
+    }
 
     public static void main(String[] args){
         createGraph(6);
@@ -143,5 +153,7 @@ static boolean dfscycle(int src,int parent,boolean[] visited){
         addEdge(3,4);
         addEdge(5,5);
         System.out.println(countConnectedCom(6));
+        System.out.println("Connected components:");
+        printConnectedCom(6);
     }
 }
