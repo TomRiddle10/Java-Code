@@ -182,14 +182,10 @@ class TreeOps {
             if (curr.left == delNode) {
                 curr.left = null;
                 return;
-            } else {
-                que.offer(curr.left);
             }
             if (curr.right == delNode) {
                 curr.right = null;
                 return;
-            } else {
-                que.offer(curr.right);
             }
             if (curr.left != null)
                 que.offer(curr.left);
@@ -197,15 +193,17 @@ class TreeOps {
                 que.offer(curr.right);
         }
     }
-    void dfs(Node root,int target,ArrayList<Integer> path,ArrayList<ArrayList<Integer>> res){
-        if(root==null) return;
+
+    void dfs(Node root, int target, ArrayList<Integer> path, ArrayList<ArrayList<Integer>> res) {
+        if (root == null)
+            return;
         path.add(root.data);
-        if(target-root.data==0){
+        if (target - root.data == 0) {
             res.add(new ArrayList<>(path));
         }
-        dfs(root.left,target-root.data,path,res);
-        dfs(root.right,target-root.data,path,res);
-        path.remove(path.size()-1);
+        dfs(root.left, target - root.data, path, res);
+        dfs(root.right, target - root.data, path, res);
+        path.remove(path.size() - 1);
     }
 
     ArrayList<ArrayList<Integer>> findPath(Node root, int target) {
@@ -216,6 +214,7 @@ class TreeOps {
         dfs(root, target, path, res);
         return res;
     }
+
     // print all the paths from root to leaf
     static void printPaths(Node root, ArrayList<Integer> path) {
         if (root == null)
@@ -236,7 +235,7 @@ public class TreeJ {
 
         TreeOps tree = new TreeOps();
 
-        Node root = tree.buildTree(new Integer[]{5,4,8,11,13,4,7,2,1});
+        Node root = tree.buildTree(new Integer[] { 5, 4, 8, 11, 13, 4, 7, 2, 1 });
         // ArrayList<ArrayList<Integer>> res = tree.findPath(root, 22);
         // System.out.println(res);
         ArrayList<Integer> path1 = new ArrayList<>();
